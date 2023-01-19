@@ -153,7 +153,7 @@ else
         # py_pkg=$(sed "s/=/==/" <<< "$py_pkg")
         if ! $(grep -iq "$py_pkg" <<< $installed_py_pkgs); then
             echo "MISSING   ${py_pkg}.*" >> check_setup.log
-            echo "Detected version: $py_pkg" >> check_setup.log
+            echo "          Detected version: ${py_pkg}\S*" >> check_setup.log
         else
             # Match the package name up until the first whitespace to get regexed versions
             # without getting all following packages contained in the string of all pacakges
