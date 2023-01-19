@@ -146,13 +146,13 @@ if ! [ -x "$(command -v conda)" ]; then  # Check that conda exists as an executa
     echo "In order to do this after the installation process," >> check_setup.log
     echo "first run 'source <path to conda>/bin/activate' and then run 'conda init'." >> check_setup.log
 else
-    py_pkgs=(pandas=1 pyppeteer=1 nbconvert=7 jupyterlab=3 jupyterlab-git=0 jupytext=1 jupyterlab-spellchecker=0)
+    py_pkgs=(pandas=1 pyppeteer=0 nbconvert=7 jupyterlab=3 jupyterlab-git=0 jupytext=1 jupyterlab-spellchecker=0)
     # installed_py_pkgs=$(pip freeze)
     installed_py_pkgs=$(conda list | tail -n +4 | tr -s " " "=" | cut -d "=" -f -2)
     for py_pkg in ${py_pkgs[@]}; do
         # py_pkg=$(sed "s/=/==/" <<< "$py_pkg")
         if ! $(grep -iq "$py_pkg" <<< $installed_py_pkgs); then
-            echo "MISSING   ${py_pkg}.*" >> check_setup.log
+            echo "MISSING   ${py_pkg}.*  Detected version: $(grep -io "${py_pkg}\S*" >> check_setup.log
         else
             # Match the package name up until the first whitespace to get regexed versions
             # without getting all following packages contained in the string of all pacakges
